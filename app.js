@@ -1,13 +1,44 @@
-const h1 = document.getElementById("title");
+// const loginForm = document.getElementById("login-form");
+// const loginInput = loginForm.querySelector("input");
+// const loginButton = loginForm.querySelector("button");
+const loginForm = document.querySelector("#login-form");
+const loginInput = document.querySelector("#login-form input");
+// const loginButton = document.querySelector("#login-form button");
+const greeting = document.querySelector("#greeting");
 
-function handleTitleClick() {
-  //   const clickedClass = "clicked";
-  //   if (h1.classList.contains(clickedClass)) {
-  //     h1.classList.remove(clickedClass);
-  //   } else {
-  //     h1.classList.add(clickedClass);
-  //   }
-  h1.classList.toggle("clicked");
+const HIDDEN_CLASSNAME = "hidden";
+const USERNAME_KEY = "usernae";
+function onLoginSubmit(event) {
+  //console.log("hello", loginInput.value);
+  const username = loginInput.value;
+  localStorage.setItem(USERNAME_KEY, username);
+  // if (username === "") {
+  //   alert("please write your name");
+  // } else if (username.length > 15) {
+  //   alert("your name is too long.");
+  // }
+  // console.log(username);
+
+  event.preventDefault();
+  // console.log(event);
+  loginForm.classList.add(HIDDEN_CLASSNAME);
+  // greeting.innerText = "Hello " + username;
+  paintGreetings(username);
 }
 
-h1.addEventListener("click", handleTitleClick);
+function paintGreetings(username) {
+  greeting.innerText = `Hello ${username}`;
+  greeting.classList.remove(HIDDEN_CLASSNAME);
+}
+
+const savedUsername = localStorage.getItem(USERNAME_KEY);
+
+if (savedUsername === null) {
+  // show the form
+  loginForm.classList.remove(HIDDEN_CLASSNAME);
+
+  loginForm.addEventListener("submit", onLoginSubmit);
+} else {
+  // show the greetings
+  paintGreetings(savedUsername);
+}
