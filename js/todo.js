@@ -27,11 +27,11 @@ function handelToDoSubmit(event) {
 function deleteToDo(event) {
   //   console.log(event.target.parentElement);
   const li = event.target.parentElement;
-  console.log(li.id);
-  //   li.remove();
+  // console.log(li.id);
 
   toDos = toDos.filter((item) => item.id !== parseInt(li.id));
   saveToDos();
+  deleteLi.remove();
 }
 
 function paintToDo(newTodoObj) {
